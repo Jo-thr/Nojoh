@@ -1,0 +1,26 @@
+**/node_modules
+
+# Node.js & Logs
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environnements & Secrets
+.env
+
+# Build & Déploiement
+/build/
+/dist/
+.vercel
+.output
+.DS_Store
+
+# Docker
+docker-compose.override.yml
+docker-compose.yml.lock
+.pnpm-store
+
+# PostgreSQL (volume Docker)
+pgdata/

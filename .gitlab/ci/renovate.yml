@@ -1,0 +1,4 @@
+
+include:
+  - project: "wizards/hex/renovate-runner"
+    file: "/templates/renovate.gitlab-ci.yml"

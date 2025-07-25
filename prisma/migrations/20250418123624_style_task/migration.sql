@@ -1,0 +1,8 @@
+-- CreateEnum
+CREATE TYPE "Style" AS ENUM ('DEFAULT', 'BACKGROUND', 'OUTLINE');
+
+-- AlterEnum
+ALTER TYPE "Role" ADD VALUE 'DEVOPS';
+
+-- AlterTable
+ALTER TABLE "Task" ADD COLUMN     "style" "Style" NOT NULL DEFAULT 'DEFAULT';
