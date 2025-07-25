@@ -8,153 +8,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Task {
-  id           String    @id @default(cuid())
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  title        String
-  description  String
-  size         Size
-  sprintStart  Float
-  assignedToId String
-  projectId    String
-  style        Style     @default(DEFAULT)
-  assignedTo   Role      @relation(fields: [assignedToId], references: [id])
-  project      Project   @relation(fields: [projectId], references: [id])
-  subtasks     Subtask[]
-}
-
-model Subtask {
-  id       String @id @default(cuid())
-  title    String
-  priority Int
-  taskId   String
-  task     Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
-}
-
-model Milestone {
-  id          String   @id @default(cuid())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  title       String
-  color       String
-  description String
-  dueDate     DateTime
-  projectId   String
-  project     Project  @relation(fields: [projectId], references: [id])
-}
-
-model Project {
-  id          String      @id @default(uuid())
-  name        String
-  description String
-  startDate   DateTime
-  status      Status
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  sprint      Int
-  milestones  Milestone[]
-  tasks       Task[]
-  roles       Role[]      @relation("RoleToProject")
-  users       User[]      @relation("ProjectToUser")
-}
-
-model Role {
-  id            String    @id @default(uuid())
-  label         String    @unique
-  favoriteColor String
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  createdById   String?
-  createdBy     User?     @relation("RolesCreatedByUser", fields: [createdById], references: [id])
-  tasks         Task[]
-  projects      Project[] @relation("RoleToProject")
-}
-
-enum Status {
-  PRESALE
-  OPEN
-  CLOSED
-}
-
-enum Size {
-  XS
-  S
-  M
-  L
-  XL
-  XXL
-}
-
-enum Style {
-  DEFAULT
-  BACKGROUND
-  OUTLINE
-}
-
 model User {
   id            String    @id @default(cuid())
-  name          String
+  idClerk       String    @unique
+  username      String
+  lastName      String?
+  firstName     String?
   email         String
-  emailVerified Boolean
   image         String?
-  createdAt     DateTime
-  updatedAt     DateTime
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   role          String?
-  banned        Boolean?
-  banReason     String?
-  banExpires    DateTime?
-  sessions      Session[]
-  accounts      Account[]
-  projects      Project[] @relation("ProjectToUser")
-  createdRoles  Role[]    @relation("RolesCreatedByUser")
-
-  @@unique([email])
-  @@map("user")
-}
-
-model Session {
-  id             String   @id @default(cuid())
-  expiresAt      DateTime
-  token          String
-  createdAt      DateTime
-  updatedAt      DateTime
-  ipAddress      String?
-  userAgent      String?
-  userId         String
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  impersonatedBy String?
-
-  @@unique([token])
-  @@map("session")
-}
-
-model Account {
-  id                    String    @id @default(cuid())
-  accountId             String
-  providerId            String
-  userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken           String?
-  refreshToken          String?
-  idToken               String?
-  accessTokenExpiresAt  DateTime?
-  refreshTokenExpiresAt DateTime?
-  scope                 String?
-  password              String?
-  createdAt             DateTime
-  updatedAt             DateTime
-
-  @@map("account")
-}
-
-model Verification {
-  id         String    @id @default(cuid())
-  identifier String
-  value      String
-  expiresAt  DateTime
-  createdAt  DateTime?
-  updatedAt  DateTime?
-
-  @@map("verification")
 }

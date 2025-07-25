@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Task" ALTER COLUMN "sprintStart" SET DATA TYPE DOUBLE PRECISION;
