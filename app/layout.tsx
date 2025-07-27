@@ -22,12 +22,10 @@ export default async function RootLayout({
       <html lang="fr">
         <body className={`${jost.variable} ${dmSerif.variable} antialiased`}>
           <ReactQueryClientProvider>
-            <div className="min-h-screen max-w-screen overflow-x-hidden">
+            <div className="flex h-screen w-screen overflow-hidden">
               <Navbar />
-              <main className="px-6">
-                <Toaster />
-                {children}
-              </main>
+              <main className="flex-1 p-6">{children}</main>
+              <Toaster />
             </div>
             <ReactQueryDevtools initialIsOpen={false} />
           </ReactQueryClientProvider>

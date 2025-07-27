@@ -1,13 +1,7 @@
 "use client";
 
 import Logo from "@/components/common/Logo";
-import {
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { SignInButton, SignUpButton, SignedOut } from "@clerk/nextjs";
 
 export default function Home() {
   return (
@@ -19,7 +13,7 @@ export default function Home() {
         </div>
         {/* Hero */}
         <h1 className="font-dmSerif text-4xl leading-tight font-bold tracking-tight md:text-5xl">
-          La Roadmap Wizardienne
+          NOJOH
         </h1>
         <p className="text-muted-foreground text-lg">
           Durable, esthétique, intelligent.
@@ -34,9 +28,6 @@ export default function Home() {
           </button>
         </SignUpButton>
       </SignedOut>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
     </div>
   );
 }

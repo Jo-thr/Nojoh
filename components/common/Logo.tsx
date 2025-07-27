@@ -1,6 +1,6 @@
 "use client";
 
-import logoSrc from "@/public/logo.png";
+import logoSrc from "@/public/logo.svg";
 import Image from "next/image";
 
 type LogoProps = {
