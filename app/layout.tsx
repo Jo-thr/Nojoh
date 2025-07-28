@@ -5,7 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
-import { dmSerif, jost } from "./fonts";
+import { dmSerif, jost, workSans } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Nojoh App",
@@ -20,11 +20,13 @@ export default async function RootLayout({
   return (
     <ClerkProvider>
       <html lang="fr">
-        <body className={`${jost.variable} ${dmSerif.variable} antialiased`}>
+        <body
+          className={`${jost.variable} ${dmSerif.variable} ${workSans.variable} antialiased`}
+        >
           <ReactQueryClientProvider>
             <div className="flex h-screen w-screen overflow-hidden">
               <Navbar />
-              <main className="flex-1 p-6">{children}</main>
+              <main className="flex-1 p-12">{children}</main>
               <Toaster />
             </div>
             <ReactQueryDevtools initialIsOpen={false} />

@@ -10,13 +10,84 @@ datasource db {
 
 model User {
   id            String    @id @default(cuid())
-  idClerk       String    @unique
+  id_clerk       String   @default("")
   username      String
-  lastName      String?
-  firstName     String?
+  lastname      String?
+  firstname     String?
   email         String
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt @default(now())
   role          String?
+
+  contacts Contact[]
+  todos    Todo[]
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  pro_contact Boolean @default(false)
+  note     String?
+
+// GENERAL CONTACT INFORMATION
+  firstname String
+  lastname  String
+  email     String
+  phone     String
+  phone_pro String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt @default(now())
+
+// ADDRESS INFORMATION
+  street    String?
+  street2   String?
+  state     String?
+  city      String?
+  zip       String?
+  country   String?  
+
+// COMPANY INFORMATION
+  company   String?
+  siret    String?
+  position  String?
+  address   String?
+  company_city      String?
+  company_state     String?
+  company_zip       String?
+  company_country   String?
+
+
+// SOCIAL MEDIA LINKS
+  facebook  String?
+  instagram String?
+  twitter   String?
+  linkedin  String?
+  github    String?
+  website   String?
+  youtube   String?
+  tiktok    String?
+  other_link String?
+
+  Todos     Todo[]
+
+// RELATIONSHIP WITH USER
+  user_id    String
+  user      User     @relation(fields: [user_id], references: [id])
+}
+
+
+model Todo {
+  id        String   @id @default(cuid())
+  title     String
+  description String?
+  status  String   @default("pending") // pending, in-progress, completed
+  due_date DateTime?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user_id   String
+  user      User     @relation(fields: [user_id], references: [id])
+  contact_id String?
+  contact   Contact? @relation(fields: [contact_id], references: [id])
+  priority  String? @default("medium") // low, medium, high
+  category  String[] 
 }
